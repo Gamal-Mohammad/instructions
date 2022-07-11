@@ -1,0 +1,23 @@
+============= Install Jenkins If local Setup =========
+
+============= Install Java  ===========
+apt-get install default-jre
+apt-get install default-jdk
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+apt-get update
+apt-get install jenkins
+systemctl start jenkins
+systemctl status jenkins
+
+Jenkins URL ====>>  http://Your-Machine-IP:8080
+========================= If Using Docker Containers =======
+docker pull jenkins/jenkins
+mkdir ~/jenkins
+
+docker run --name jenkins -d -p 8080:8080 -v ~/jenkins:/var/jenkins_home --restart=on-failure jenkins/jenkins
+
+Jenkins URL ====>>  http://Your-Machine-IP:8080
