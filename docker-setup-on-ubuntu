@@ -1,0 +1,31 @@
+Login to your Ubuntu machine & then run the following commands
+
+sudo apt -y remove docker docker-engine docker.io 2>/dev/null
+sudo apt autoremove
+sudo apt update
+sudo apt -y install docker-registry 
+sudo cat /etc/docker/registry/config.yml 
+sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt-cache policy docker-ce
+sudo apt -y install docker-ce
+sudo apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt update
+sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-registry
+sudo usermod -aG docker $USER
+newgrp docker
+
+docker compose version
+systemctl status docker-registry.service
+systemctl status containerd.service
+systemctl status docker.service
+
+docker pull httpd
+docker pull registry
+docker pull konradkleine/docker-registry-frontend:v2
+docker pull wordpress
+docker pull mariadb
+docker images
