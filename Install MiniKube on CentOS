@@ -1,0 +1,40 @@
+Install Kubernetes on CentOS8/RHEL8
+
+dnf update
+dnf install qemu-kvm libvirt-devel bridge-utils libvirt-daemon libvirt libvirt-client libvirt-daemon-driver-network  libguestfs-tools libosinfo virt-install virt-top virt-manager
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+ls
+rpm -Uvh minikube-latest.x86_64.rpm
+virsh list --all
+modprobe vhost_net
+lsmod | grep vhost
+echo "vhost_net" | sudo tee -a /etc/modules
+minikube version
+kubectl get po -A
+egrep -c '(vmx|svm)' /proc/cpuinfo
+virt-host-validate
+egrep -c ' lm ' /proc/cpuinfo
+usermod gamal -aG kvm
+usermod gamal -aG libvirt
+usermod gamal -aG qemu
+systemctl enable --now libvirtd.service
+reboot
+
+NOW::::: Switch to User Gamal or any user you use
+
+minikube start --driver=kvm2
+minikube config set driver kvm2
+minikube kubectl -- get pods -A
+egrep -q 'vmx|svm' /proc/cpuinfo && echo yes || echo no
+minikube start
+sudo virsh net-list --all
+sudo virsh list --all
+minikube kubectl -- get pods
+minikube kubectl -- get pods -A
+minikube kubectl -- get nodes
+minikube kubectl -- cluster-info
+minikube kubectl -- config view
+minikube addons list
+alias kubectl="minikube kubectl --"
+kubectl get nodes
+kubectl get pods -A
