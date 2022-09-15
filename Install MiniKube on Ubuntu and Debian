@@ -1,0 +1,37 @@
+Install Kubernetes on Ubuntu/Debian 
+
+sudo apt update
+sudo apt install vim qemu-kvm libvirt-dev libvirt-daemon-system libvirt-daemon virtinst bridge-utils libosinfo-bin virt-top virt-manager libguestfs-tools
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+ls
+sudo dpkg -i minikube_latest_amd64.deb
+virsh list --all
+sudo modprobe vhost_net
+sudo lsmod | grep vhost
+echo "vhost_net" | sudo tee -a /etc/modules
+sudo apt install apt-transport-https
+
+minikube version
+kubectl get po -A
+egrep -c '(vmx|svm)' /proc/cpuinfo
+virt-host-validate
+kvm-ok 
+egrep -c ' lm ' /proc/cpuinfo
+sudo adduser `id -un` kvm
+reboot 
+virt-host-validate
+minikube start --driver=kvm2
+minikube config set driver kvm2
+egrep -q 'vmx|svm' /proc/cpuinfo && echo yes || echo no
+minikube start
+
+sudo virsh net-list --all
+minikube kubectl -- get pods
+minikube kubectl -- get nodes
+minikube kubectl -- cluster-info 
+minikube kubectl -- config view
+minikube addons list
+minikube dashboard &
+alias kubectl="minikube kubectl --"
+kubectl get nodes
+kubectl get pods -A
