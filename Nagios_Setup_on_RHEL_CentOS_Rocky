@@ -19,7 +19,8 @@ vim /etc/selinux/config
 setenforce 0
 
 Step 05:
-### Install Apache and PHP and Dependences packagesdnf install -y httpd httpd-tools php gcc glibc glibc-common perl gd gd-devel make net-snmp zip unzip
+### Install Apache and PHP and Dependences packages
+dnf install -y httpd httpd-tools php gcc glibc glibc-common perl gd gd-devel make net-snmp zip unzip
 
 Step 06:
 ### Create Nagios User and Groupgroupadd nagcmduseradd nagios -G nagcmdusermod apache -aG nagcmd
