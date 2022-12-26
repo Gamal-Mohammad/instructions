@@ -1,0 +1,86 @@
+Step 01:
+### Install RHEL or CentOS or Rocky OS
+Step 02:
+### configure Static Network configuration and set system hostname
+
+step 03:
+### Configure repository
+### update your System with 
+dnf update -y 
+systemctl reboot
+
+Steps 04:
+### Configure Firewall and SE-Linux
+firewall-cmd --state
+firewall-cmd --permanent --add-service=http --add-service=https
+firewall-cmd reload 
+vim /etc/selinux/config 
+### Change mode to permissive
+setenforce 0
+
+Step 05:
+### Install Apache and PHP and Dependences packagesdnf install -y httpd httpd-tools php gcc glibc glibc-common perl gd gd-devel make net-snmp zip unzip
+
+Step 06:
+### Create Nagios User and Groupgroupadd nagcmduseradd nagios -G nagcmdusermod apache -aG nagcmd
+
+Step 07:
+### Download Nagios Core and Nagios Plugin
+mkdir /tmp/nagios
+cd /tmp/nagios
+wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.9.tar.gz
+wget https://nagios-plugins.org/download/nagios-plugins-2.3.3.tar.gz
+
+Step 08:
+### Extract Nagios Core and Nagios Plugins
+tar -xf nagios-4.4.9.tar.gz
+tar -xf nagios-plugins-2.3.3.tar.gz
+
+Step 09:
+### Installing and Configuring Nagios Core
+cd nagios-4.4.9/
+./configure --with-command-group=nagcmd --with-nagios-group=nagios
+######### If Make failed SSL headers... configure: error: Cannot find ssl headers #######
+### run the following command 
+dnf  install openssl-devel -y 
+### then RE-Run 
+./configure again  --with-command-group=nagcmd --with-nagios-group=nagios
+make all
+make install
+make install-init
+make install-commandmode
+make install-config
+make install-webconf
+
+Step 10:
+### Customizing Nagios Configuration change mail to ur mail address
+vim /usr/local/nagios/etc/objects/contacts.cfg
+
+Step 11:
+### Install and Configure the Web Interface for Nagios
+make install-webconf
+htpasswd -s -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+systemctl restart httpd
+
+Step 12:
+### Compile and Install Nagios Plugin
+cd /tmp/nagios
+cd nagios-plugins-2.3.3
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+make
+make install
+
+Step 13:
+### Verify Nagios Configuration Files
+/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+Step 14:
+### Add Nagios Services to System Startup
+systemctl enable nagios
+systemctl enable httpd
+systemctl restart nagios
+
+Step 15:
+### Login to the Nagios Web Interface
+### Your Nagios is ready to work, please open it in your browser with “http://Your-server-IP-address/nagios” 
+### or “http://FQDN/nagios” and Provide the username “nagiosadmin” and password.
