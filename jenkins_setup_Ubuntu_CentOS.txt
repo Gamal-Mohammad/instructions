@@ -9,6 +9,7 @@ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key 
 sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 
 sudo apt-get update
+sudo apt-get upgrade   -y
 sudo apt-get install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
@@ -20,7 +21,8 @@ Add Jenkins repo
 
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
-sudo dnf install -y java-11-openjdk
+dnf update -y 
+sudo dnf install -y java-17-openjdk
 sudo dnf install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
