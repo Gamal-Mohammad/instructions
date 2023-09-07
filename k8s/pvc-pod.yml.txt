@@ -5,8 +5,8 @@ metadata:
 spec:
   volumes:
     - name: pod1-storage
-      PersistentVolumeClaim:
-        ClaimName: pvc-storage
+      persistentVolumeClaim:
+        claimName: pvc-storage
   containers:
     - name: pv-container
       image: httpd
