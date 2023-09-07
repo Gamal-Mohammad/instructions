@@ -1,0 +1,15 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod1-storage
+spec:
+  volumes:
+    - name: pod1-storage
+      PersistentVolumeClaim:
+        ClaimName: pvc-storage
+  containers:
+    - name: pv-container
+      image: httpd
+      volumeMounts:
+        - mountPath: "/usr/local/apache2"
+          name: pod1-storage

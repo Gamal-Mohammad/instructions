@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: update
+  name: example-ingress
+spec:
+  rules:
+  - host: app.ezz.com
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: updateme-lb
+            port:
+              number: 90
