@@ -1,7 +1,7 @@
 Login to your Ubuntu machine & then run the following commands
 
-sudo apt -y remove docker docker-engine docker.io 2>/dev/null
-sudo apt autoremove
+sudo apt update
+sudo apt install curl
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common
