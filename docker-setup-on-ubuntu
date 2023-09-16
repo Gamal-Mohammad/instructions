@@ -11,11 +11,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 docker compose version
-systemctl status docker-registry.service
-systemctl status containerd.service
 systemctl status docker.service
 
 docker pull httpd
-docker pull wordpress
-docker pull mariadb
 docker images
