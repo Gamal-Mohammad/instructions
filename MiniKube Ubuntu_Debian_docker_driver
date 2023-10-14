@@ -18,11 +18,10 @@ minikube start --driver=docker --nodes=2
 sudo snap install kubectl --classic
 minikube kubectl -- get pods
 kubectl get pods
-minikube kubectl -- get nodes
-kubectl get nodes
 
 minikube kubectl -- cluster-info 
-minikube kubectl -- config view
+kubectl cluster-info
+
 minikube addons list
 minikube dashboard &
 kubectl get nodes
