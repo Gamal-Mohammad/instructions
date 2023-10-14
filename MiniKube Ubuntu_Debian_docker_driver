@@ -1,23 +1,19 @@
 Install Kubernetes on Ubuntu/Debian 
-
+#### Install Docker First if Installed Skip these steps
 sudo apt update
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
-ls
-sudo dpkg -i minikube_latest_amd64.deb
-sudo apt install apt-transport-https
-sudo apt -y remove docker docker-engine docker.io 2>/dev/null
-sudo apt autoremove
-sudo apt -y install docker-registry 
+sudo apt install curl
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-sudo apt-cache policy docker-ce
-sudo apt -y install lsb-release gnupg apt-transport-https ca-certificates curl software-properties-common
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
-sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-registry
+sudo apt -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-registry 
 sudo usermod -aG docker $USER
 newgrp docker
+
+######### Install MiniKube (kubernetes platform)
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+ls
+sudo dpkg -i minikube_latest_amd64.deb
 
 minikube start --driver=docker --nodes=2
 sudo snap install kubectl --classic
