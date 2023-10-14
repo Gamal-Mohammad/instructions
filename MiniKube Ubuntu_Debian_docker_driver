@@ -2,7 +2,6 @@ Install Kubernetes on Ubuntu/Debian
 #### Install Docker First if Installed Skip these steps
 sudo apt update
 sudo apt install curl
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
 sudo add-apt-repository "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
