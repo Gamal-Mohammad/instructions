@@ -5,7 +5,7 @@ dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce
 dnf update
 dnf install docker-ce docker-ce-cli containerd.io --allowerasing
 systemctl enable docker docker.socket  containerd
-systemctl start docker docker.socket  containerd.io
+systemctl start docker docker.socket  containerd
 docker images
 usermode -aG docker  Your_UserName
 
