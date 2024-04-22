@@ -25,4 +25,5 @@ to check if user name access docker commands
 
 minikube start --driver=docker --nodes=2
 minikube kubectl -- get pods
-alias kubectl='minikube kubectl'
+alias kubectl='minikube kubectl --'
+kubectl get pods -A
