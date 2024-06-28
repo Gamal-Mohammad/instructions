@@ -1,15 +1,14 @@
 ============= Install Jenkins If local Setup =========
 
-============= Install Java On Ubuntu ===========
-sudo apt-get install -y default-jre
-sudo apt-get install -y default-jdk
+============= Install Java On Ubuntu ==========
 
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 
-sudo apt-get update
-sudo apt-get install -y jenkins
+sudo apt update
+sudo apt install fontconfig openjdk-17-jre -y
+sudo apt install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 
@@ -19,7 +18,9 @@ Jenkins URL ====>>  http://Your-Machine-IP:8080
 Add Jenkins repo
 
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
-sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+sed -i 's/gpgcheck=1/gpgcheck=0/' /etc/yum.repos.d/jenkins.repo
+
 dnf update -y 
 sudo dnf install -y java-17-openjdk
 sudo dnf install -y jenkins
