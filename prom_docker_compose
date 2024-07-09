@@ -1,0 +1,67 @@
+docker-compose up -d
+==========
+---
+version: '3.8'
+
+services:
+  node_exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    ports:
+      - "9100:9100"
+---------------------
+
+
+docker volume create prometheus_data
+cd prometheus_config/
+vim prometheus.yml
+=========
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node_exporter:9100']
+----------------------
+
+docker run -d --name prometheus-docker -p 9090:9090 --mount type=bind,source=$PWD/prometheus.yml,target=/etc/prometheus/prometheus.yml prom/prometheus
+
+
+http://localhost:9090
+============
+Run Grafana into Docker
+
+
+docker volume create grafana_data
+
+docker run -d --name grafana-docker -p 3000:3000 -v grafana_data:/var/lib/grafana grafana/grafana
+
+
+http://localhost:3000
+
+Navigate to Data Source and choose Prometheus
+In the URL field add your Machine IP followed by Prometheus port 9090 to look like the following, Then Save & Test
+
+Navigate to Dashboard then Import and use the dashboard id 1860 then Load
+
+From the last section choose Prometheus then Import
+
+You will be able to see all the data pulled from the node exporter presented in a nice UI
+
+
