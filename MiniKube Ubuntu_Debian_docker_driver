@@ -16,10 +16,8 @@ sudo dpkg -i minikube_latest_amd64.deb
 
 minikube start --driver=docker --nodes=2
 sudo snap install kubectl --classic
-minikube kubectl -- get pods
-kubectl cluster-info
-kubectl get pods
+kubectl get nodes
+kubectl get pods 
+kubectl get pods -A
 minikube addons list
 minikube dashboard &
-kubectl get nodes
-kubectl get pods -A
