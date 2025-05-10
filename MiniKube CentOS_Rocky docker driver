@@ -2,6 +2,8 @@ CentOS/Rocky/RedHat
 Install docker first
 
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+sudo sed -i 's/gpgcheck=1/gpgcheck=0/' /etc/yum.repos.d/docker-ce.repo
+cat /etc/yum.repos.d/docker-ce.repo
 dnf update
 dnf install docker-ce docker-ce-cli containerd.io --allowerasing
 systemctl enable docker docker.socket  containerd
@@ -10,9 +12,7 @@ docker images
 usermode -aG docker  Your_UserName
 
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
-rpm -Uvh minikube-latest.x86_64.rpm
-su - gamal (Use Your User)
-docker images
+sudo rpm -Uvh minikube-latest.x86_64.rpm
 minikube start --driver=docker --nodes=2
 minikube config set driver docker
 minikube kubectl -- get pods -A
