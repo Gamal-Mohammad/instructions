@@ -16,3 +16,4 @@ sudo rpm -Uvh minikube-latest.x86_64.rpm
 minikube start --driver=docker --nodes=2
 minikube config set driver docker
 minikube kubectl -- get pods -A
+alias kubectl='minikube kubectl --'
