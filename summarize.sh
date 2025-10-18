@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+watch --color 'echo "--------------------- Status ---------------------" ; echo "" ; git -c color.status=always status ; echo "" ; echo "---------------------- Commit Logs --------------------" ; echo "" ; git log ; echo "" ; echo "--------------------- Branches ---------------------" ; echo "" ; git branch ; echo "--------------------- List of Files ---------------------" ; ls -l'
