@@ -21,7 +21,7 @@ curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | 
 
 sed -i 's/gpgcheck=1/gpgcheck=0/' /etc/yum.repos.d/jenkins.repo
 
-dnf update -y 
+sudo dnf update -y 
 sudo dnf install -y java-17-openjdk
 sudo dnf install -y jenkins
 sudo systemctl start jenkins
