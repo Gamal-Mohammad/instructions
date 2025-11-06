@@ -1,0 +1,9 @@
+---
+- name: Print welcome message
+  hosts: all
+  tasks:
+    - name: print
+      debug:
+        msg: "Welcome to Ansible Automation ...."
+
+...
